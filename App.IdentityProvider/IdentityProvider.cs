@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using com.marcelbenders.App.IdentityProvider.Model.WoMoDiary.Domain;
 using com.marcelbenders.App.IdentityProvider.Services;
+using NLog;
 
 namespace com.marcelbenders.App.IdentityProvider
 {
     public class IdentityProvider : IIdentityProvider
     {
-        protected ILogger Logger;
         public IdentityProvider(ILogger logger)
         {
-            Logger = logger;
+            _logger = logger;
         }
 
+        private readonly ILogger _logger;
         public async Task<string> GetIdentityToken(
             string clientId,
             string secret)
@@ -41,8 +43,11 @@ namespace com.marcelbenders.App.IdentityProvider
                 if (result.IsSuccessStatusCode)
                 {
                     var str = await result.Content.ReadAsStringAsync();
-                    Logger.Log(str);
                     token = Token.FromJson(str);
+                }
+                else
+                {
+                    _logger?.Log(LogLevel.Error, $"Error occured while calling https://identity.marcelbenders.de. Message: '{result.ReasonPhrase}' Server Status Code: '{result.StatusCode}'");
                 }
             }
             return token != null ? token.AccessToken : string.Empty;
