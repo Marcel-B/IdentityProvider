@@ -20,12 +20,13 @@ namespace com.marcelbenders.App.IdentityProvider
         private readonly ILogger _logger;
         public async Task<string> GetIdentityToken(
             string clientId,
-            string secret)
+            string secret,
+            string scope)
         {
             const string identityUrl = "https://identity.marcelbenders.de/connect/token";
             var body = new List<KeyValuePair<string, string>>{
                 new KeyValuePair<string, string>("grant_type", "client_credentials"),
-                new KeyValuePair<string, string>("scope", "com.bvelop.apps"),
+                new KeyValuePair<string, string>("scope", scope),
             };
             Token token = null;
             using (var content = new FormUrlEncodedContent(body))
