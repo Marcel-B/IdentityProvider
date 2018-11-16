@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Compression;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13,7 +12,7 @@ namespace com.marcelbenders.App.IdentityProvider
 {
     public class IdentityProvider : IIdentityProvider
     {
-        public IdentityProvider(ILogger logger)
+        public IdentityProvider(ILogger logger = null)
         {
             _logger = logger;
         }
