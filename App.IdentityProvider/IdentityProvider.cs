@@ -4,11 +4,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using com.marcelbenders.App.IdentityProvider.Model.WoMoDiary.Domain;
-using com.marcelbenders.App.IdentityProvider.Services;
+using com.b_velop.App.IdentityProvider.Model;
 using NLog;
 
-namespace com.marcelbenders.App.IdentityProvider
+namespace com.b_velop.App.IdentityProvider
 {
     public class IdentityProvider : IIdentityProvider
     {

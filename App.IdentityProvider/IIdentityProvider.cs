@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace com.marcelbenders.App.IdentityProvider.Services
+namespace com.b_velop.App.IdentityProvider
 {
     public interface IIdentityProvider
     {
