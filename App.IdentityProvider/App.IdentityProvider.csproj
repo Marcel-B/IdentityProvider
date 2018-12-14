@@ -6,7 +6,18 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>2018</Copyright>
     <Version>1.0.0</Version>
+    <PackOnBuild>true</PackOnBuild>
+    <Authors>Marcel Benders</Authors>
+    <Owners>Marcel Benders</Owners>
+    <Title>App.Identity</Title>
     <RestoreSources>https://nuget.nuqneh.de;https://api.nuget.org/v3/index.json</RestoreSources>
+    <RepositoryUrl></RepositoryUrl>
+    <NeutralLanguage>de-DE</NeutralLanguage>
+    <PackageTags>Home</PackageTags>
+    <PackageLicenseUrl>https://b-velop.com</PackageLicenseUrl>
+    <Copyright>2018</Copyright>
+    <Company>b-velop</Company>
+    <Description>Identity Library</Description>
   </PropertyGroup>
 
   <ItemGroup>
