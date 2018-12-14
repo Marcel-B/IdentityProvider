@@ -5,11 +5,11 @@
     <RootNamespace>com.b_velop.App.IdentityProvider</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>2018</Copyright>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackOnBuild>true</PackOnBuild>
     <Authors>Marcel Benders</Authors>
     <Owners>Marcel Benders</Owners>
-    <Title>App.Identity</Title>
+    <Title>App.IdentityProvider</Title>
     <RestoreSources>https://nuget.nuqneh.de;https://api.nuget.org/v3/index.json</RestoreSources>
     <RepositoryUrl></RepositoryUrl>
     <NeutralLanguage>de-DE</NeutralLanguage>
