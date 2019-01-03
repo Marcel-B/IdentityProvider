@@ -5,9 +5,9 @@
     <RootNamespace>com.b_velop.App.IdentityProvider</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>2018</Copyright>
-    <Version>1.0.4</Version>
-    <PackageVersion>1.0.4</PackageVersion>
-    <ReleaseVersion>1.0.4</ReleaseVersion>
+    <Version>1.0.5</Version>
+    <PackageVersion>1.0.5</PackageVersion>
+    <ReleaseVersion>1.0.5</ReleaseVersion>
     <PackOnBuild>true</PackOnBuild>
     <Authors>Marcel Benders</Authors>
     <Owners>Marcel Benders</Owners>
