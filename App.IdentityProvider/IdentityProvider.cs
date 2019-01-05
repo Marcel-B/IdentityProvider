@@ -25,8 +25,6 @@ namespace com.b_velop.App.IdentityProvider
             string scope,
             string authorityUrl)
         {
-            var authority = Path.Combine(authorityUrl, "/connect/token");
-            _logger?.Log(LogLevel.Info, $"Path: {authority}");
             var body = new List<KeyValuePair<string, string>> {
                     new KeyValuePair<string, string> ("grant_type", "client_credentials"),
                     new KeyValuePair<string, string> ("scope", scope),
@@ -42,7 +40,7 @@ namespace com.b_velop.App.IdentityProvider
                 content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Basic", credentials);
-                var result = await client.PostAsync(authority, content);
+                var result = await client.PostAsync(authorityUrl, content);
                 if (result.IsSuccessStatusCode)
                 {
                     var str = await result.Content.ReadAsStringAsync();
