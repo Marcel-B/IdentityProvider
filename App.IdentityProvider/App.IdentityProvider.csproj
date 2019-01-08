@@ -4,10 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>com.b_velop.App.IdentityProvider</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Copyright>2018</Copyright>
-    <Version>1.0.8</Version>
-    <PackageVersion>1.0.8</PackageVersion>
-    <ReleaseVersion>1.0.8</ReleaseVersion>
+    <Copyright>2019</Copyright>
+    <Version>2.0.0</Version>
+    <PackageVersion>2.0.0</PackageVersion>
+    <ReleaseVersion>2.0.0</ReleaseVersion>
     <PackOnBuild>true</PackOnBuild>
     <Authors>Marcel Benders</Authors>
     <Owners>Marcel Benders</Owners>
@@ -26,6 +26,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="NLog" Version="4.5.11" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
   </ItemGroup>
 
 </Project>
