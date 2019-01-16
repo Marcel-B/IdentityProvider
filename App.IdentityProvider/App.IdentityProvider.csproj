@@ -5,9 +5,8 @@
     <RootNamespace>com.b_velop.App.IdentityProvider</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>2019</Copyright>
-    <Version>2.0.0</Version>
-    <PackageVersion>2.0.0</PackageVersion>
-    <ReleaseVersion>2.0.0</ReleaseVersion>
+    <Version>2.1.0</Version>
+    <PackageVersion>2.1.0</PackageVersion>
     <PackOnBuild>true</PackOnBuild>
     <Authors>Marcel Benders</Authors>
     <Owners>Marcel Benders</Owners>
@@ -17,16 +16,18 @@
     <RepositoryUrl></RepositoryUrl>
     <NeutralLanguage>de-DE</NeutralLanguage>
     <PackageTags>Home</PackageTags>
-    <PackageLicenseUrl>https://b-velop.com</PackageLicenseUrl>
+    <License>https://b-velop.com</License>
     <Copyright>2018</Copyright>
     <Company>b-velop</Company>
     <Description>Identity Library</Description>
+    <ReleaseVersion>2.1.0</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="NLog" Version="4.5.11" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="IdentityModel" Version="3.10.5" />
   </ItemGroup>
 
 </Project>

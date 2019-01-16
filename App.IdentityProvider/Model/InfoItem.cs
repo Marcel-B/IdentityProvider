@@ -12,8 +12,12 @@ namespace com.b_velop.App.IdentityProvider.Model
         {
             Credentials = Encoding.ASCII.GetBytes($"{clientId}:{secret}");
             Url = url ?? string.Empty;
+            ClientId = clientId;
+            Secret = secret;
         }
 
+        public string ClientId { get; set; }
+        public string Secret { get; set; }
         public byte[] Credentials { get; }
         public string Scope { get; set; }
         private string _url;
@@ -24,5 +28,8 @@ namespace com.b_velop.App.IdentityProvider.Model
 
         public string GetUrlTokenPrefix()
             => Url + "/connect/token";
+
+        public void Delete() 
+            => Secret = string.Empty; 
     }
 }

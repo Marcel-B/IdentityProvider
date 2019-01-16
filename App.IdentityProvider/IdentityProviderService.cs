@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using com.b_velop.App.IdentityProvider.Model;
 using Microsoft.Extensions.Logging;
+using IdentityModel.Client;
 
 namespace com.b_velop.App.IdentityProvider
 {
@@ -11,6 +10,7 @@ namespace com.b_velop.App.IdentityProvider
     {
         private HttpClient _client;
         private readonly ILogger<IdentityProviderService> _logger;
+        public string Adress { get; set; }
 
         public IdentityProviderService(
             HttpClient client,
@@ -23,29 +23,29 @@ namespace com.b_velop.App.IdentityProvider
         public async Task<Token> GetToken(
             InfoItem infoItem)
         {
-            var body = new List<KeyValuePair<string, string>> {
-                    new KeyValuePair<string, string> ("grant_type", "client_credentials"),
-                    new KeyValuePair<string, string> ("scope", infoItem.Scope),
-                };
-            Token token = null;
-            using (var content = new FormUrlEncodedContent(body))
+            var disco = await _client.GetDiscoveryDocumentAsync(infoItem.Url);
+            if (disco.IsError)
             {
-                _client.DefaultRequestHeaders.Clear();
-                content.Headers.Clear();
-                content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                _client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Basic", infoItem.GetBase64Credentials());
-                var result = await _client.PostAsync(infoItem.GetUrlTokenPrefix(), content);
-                if (result.IsSuccessStatusCode)
-                {
-                    var str = await result.Content.ReadAsStringAsync();
-                    token = Token.FromJson(str);
-                }
-                else
-                {
-                    _logger?.Log(LogLevel.Error, $"Error occured while calling '{infoItem.Url}'. Message: '{result.ReasonPhrase}' Server Status Code: '{result.StatusCode}'");
-                }
+                _logger.LogError($"Failed to connect to '{infoItem.Url}'. No DiscoveryDocument could be loaded");
+                return null;
             }
+
+            var tokenResponse = await _client.RequestClientCredentialsTokenAsync(
+                new ClientCredentialsTokenRequest
+                {
+                    Scope = infoItem.Scope,
+                    Address = disco.TokenEndpoint,
+                    ClientId = infoItem.ClientId,
+                    ClientSecret = infoItem.Secret
+                });
+           
+            if (tokenResponse.IsError)
+            {
+                _logger.LogError($"Failed to download token from '{infoItem.Url}'. Error Description:'{tokenResponse.ErrorDescription}' Error Reason: '{tokenResponse.HttpErrorReason}' Http Status: '{tokenResponse.HttpStatusCode}'");
+                return null;
+            }
+
+            Token token = Token.FromJson(tokenResponse.Raw);
             return token ?? null;
         }
     }
