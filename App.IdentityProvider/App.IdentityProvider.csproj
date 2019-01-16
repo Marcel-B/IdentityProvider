@@ -5,8 +5,8 @@
     <RootNamespace>com.b_velop.App.IdentityProvider</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>2019</Copyright>
-    <Version>2.1.0</Version>
-    <PackageVersion>2.1.0</PackageVersion>
+    <Version>2.1.1</Version>
+    <PackageVersion>2.1.1</PackageVersion>
     <PackOnBuild>true</PackOnBuild>
     <Authors>Marcel Benders</Authors>
     <Owners>Marcel Benders</Owners>
@@ -20,7 +20,7 @@
     <Copyright>2018</Copyright>
     <Company>b-velop</Company>
     <Description>Identity Library</Description>
-    <ReleaseVersion>2.1.0</ReleaseVersion>
+    <ReleaseVersion>2.1.1</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>

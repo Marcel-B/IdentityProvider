@@ -38,7 +38,7 @@ namespace com.b_velop.App.IdentityProvider
                     ClientId = infoItem.ClientId,
                     ClientSecret = infoItem.Secret
                 });
-           
+            infoItem.Delete(); 
             if (tokenResponse.IsError)
             {
                 _logger.LogError($"Failed to download token from '{infoItem.Url}'. Error Description:'{tokenResponse.ErrorDescription}' Error Reason: '{tokenResponse.HttpErrorReason}' Http Status: '{tokenResponse.HttpStatusCode}'");
