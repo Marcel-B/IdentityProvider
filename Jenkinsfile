@@ -4,6 +4,8 @@ node {
     properties([gitLabConnection('GitLab')])
     
     stage('Preparation') { 
+        cleanWs()
+
         checkout scm
         commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
         updateGitlabCommitStatus name: 'restore', state: 'pending', sha: commitId
