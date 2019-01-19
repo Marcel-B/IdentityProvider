@@ -107,7 +107,7 @@ node {
                 dir('App.IdentityProvider/'){
                     sh 'ls'
                     sh "dotnet build -c Release"
-                    sh "dotnet pack -c Release"
+                    sh "dotnet pack -p:PackageVersion=2.5.0 -c Release"
                     // sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU /App.IdentityProvider/bin/Release/*.nupkg"
                     println 'After Pack:'
                     sh 'ls'
