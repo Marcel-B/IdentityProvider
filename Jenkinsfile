@@ -60,7 +60,7 @@ node {
     try{
         stage('Publish'){
             updateGitlabCommitStatus name: 'publish', state: 'running', sha: commitId
-            sh 'dotnet publish -c Release'
+            sh 'dotnet publish -c release'
             updateGitlabCommitStatus name: 'publish', state: 'success', sha: commitId
         }
     }catch(Exception ex){
