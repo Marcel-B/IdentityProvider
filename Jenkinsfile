@@ -42,7 +42,7 @@ node {
     try{
         stage('Build'){
             updateGitlabCommitStatus name: 'build', state: 'running', sha: commitId 
-            sh 'dotnet build'
+            //sh 'dotnet build'
             updateGitlabCommitStatus name: 'build', state: 'success', sha: commitId
         }
     }catch(Exception ex){
@@ -81,7 +81,7 @@ node {
     try{
         stage('Tests') {
             gitlabCommitStatus("test") {
-                sh 'dotnet test'
+               // sh 'dotnet test'
             }
         }
     }catch(Exception ex){
@@ -102,7 +102,7 @@ node {
                 mvnHome = env.BUILD_NUMBER
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
                 println 'Directory:'
-                sl 'ls'
+                sh 'ls'
                 println 'Next Directory:'
                 dir('App.IdentityProvider/'){
                     sh 'ls'
