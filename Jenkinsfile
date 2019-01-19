@@ -101,7 +101,9 @@ node {
             stage('NuGet'){
                 mvnHome = env.BUILD_NUMBER
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
-                sh "dotnet pack -p:PackageVersion=2.2.${mvnHome} -c Release"
+                dir('App.IdentityProvider/'){
+                    sh "dotnet pack -p:PackageVersion=2.2.${mvnHome} -c Release"
+                }
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
             }   
         }
