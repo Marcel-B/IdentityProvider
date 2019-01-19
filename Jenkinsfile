@@ -1,6 +1,8 @@
 node {
     def mvnHome
     def commitId
+    def packageN
+
     properties([gitLabConnection('GitLab')])
     
     stage('Preparation') { 
@@ -42,7 +44,7 @@ node {
     try{
         stage('Build'){
             updateGitlabCommitStatus name: 'build', state: 'running', sha: commitId 
-            //sh 'dotnet build'
+            sh 'dotnet build'
             updateGitlabCommitStatus name: 'build', state: 'success', sha: commitId
         }
     }catch(Exception ex){
@@ -81,7 +83,7 @@ node {
     try{
         stage('Tests') {
             gitlabCommitStatus("test") {
-               // sh 'dotnet test'
+                sh 'dotnet test'
             }
         }
     }catch(Exception ex){
@@ -100,6 +102,7 @@ node {
         if(env.BRANCH_NAME == 'master'){
             stage('NuGet'){
                 mvnHome = env.BUILD_NUMBER
+                packageN = "2.1.${mvnHome}"
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
                 println 'Directory:'
                 sh 'ls'
@@ -107,7 +110,7 @@ node {
                 dir('App.IdentityProvider/'){
                     sh 'ls'
                     sh "dotnet build -c Release"
-                    sh "dotnet pack -p:PackageVersion=2.5.0 -c Release"
+                    sh "dotnet pack -p:PackageVersion=${packageN} -c Release"
                     // sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU /App.IdentityProvider/bin/Release/*.nupkg"
                     println 'After Pack:'
                     sh 'ls'
@@ -131,7 +134,7 @@ node {
                 dir('App.IdentityProvider/bin/Release/') {
                     sh "ls"
                 }
-                sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU ./App.IdentityProvider/bin/Release/*.nupkg"
+                sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU ./App.IdentityProvider/bin/Release/*${packageN}.nupkg"
                 updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId
             }
         }
