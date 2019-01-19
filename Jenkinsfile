@@ -108,7 +108,7 @@ node {
                     sh 'ls'
                     sh "dotnet build -c Release"
                     sh "dotnet pack -c Release"
-                    sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU /App.IdentityProvider/bin/Release/*.nupkg"
+                    // sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU /App.IdentityProvider/bin/Release/*.nupkg"
                     println 'After Pack:'
                     sh 'ls'
                 }
