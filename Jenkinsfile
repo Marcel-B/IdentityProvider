@@ -107,6 +107,8 @@ node {
                 dir('App.IdentityProvider/'){
                     sh 'ls'
                     sh "dotnet pack App.IdentityProvider.csproj -p:PackageVersion=2.2.${mvnHome} -c Release"
+                    println 'After Pack:'
+                    sh 'ls'
                 }
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
             }   
