@@ -106,7 +106,7 @@ node {
                 println 'Next Directory:'
                 dir('App.IdentityProvider/'){
                     sh 'ls'
-                    sh "dotnet pack App.IdentityProvider.csproj -p:PackageVersion=2.2.${mvnHome} -c Release"
+                    sh "dotnet pack App.IdentityProvider.csproj -c Release"
                     println 'After Pack:'
                     sh 'ls'
                 }
