@@ -7,7 +7,6 @@ node {
     
     stage('Preparation') { 
         cleanWs()
-
         checkout scm
         commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
         updateGitlabCommitStatus name: 'restore', state: 'pending', sha: commitId
@@ -64,7 +63,7 @@ node {
     try{
         stage('Publish'){
             updateGitlabCommitStatus name: 'publish', state: 'running', sha: commitId
-            //sh 'dotnet publish -c release'
+            sh 'dotnet publish -c release'
             updateGitlabCommitStatus name: 'publish', state: 'success', sha: commitId
         }
     }catch(Exception ex){
@@ -104,16 +103,8 @@ node {
                 mvnHome = env.BUILD_NUMBER
                 packageN = "2.1.${mvnHome}"
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
-                println 'Directory:'
-                sh 'ls'
-                println 'Next Directory:'
                 dir('App.IdentityProvider/'){
-                    sh 'ls'
-                    sh "dotnet build -c Release"
                     sh "dotnet pack -p:PackageVersion=${packageN} -c Release"
-                    // sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU /App.IdentityProvider/bin/Release/*.nupkg"
-                    println 'After Pack:'
-                    sh 'ls'
                 }
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
             }   
@@ -133,7 +124,6 @@ node {
                 updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId 
                 dir('App.IdentityProvider/bin/Release/') {
                     sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU ./*${packageN}.nupkg"
-                    sh "ls"
                 }
                 updateGitlabCommitStatus name: 'deploy', state: 'success', sha: commitId
             }
