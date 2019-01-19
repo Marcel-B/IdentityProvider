@@ -11,7 +11,6 @@ node {
         commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
         updateGitlabCommitStatus name: 'restore', state: 'pending', sha: commitId
         updateGitlabCommitStatus name: 'build', state: 'pending', sha: commitId
-        updateGitlabCommitStatus name: 'publish', state: 'pending', sha: commitId
         updateGitlabCommitStatus name: 'test', state: 'pending', sha: commitId
         if(env.BRANCH_NAME == 'master'){
             updateGitlabCommitStatus name: 'pack', state: 'pending', sha: commitId
@@ -29,7 +28,6 @@ node {
     }catch(Exception ex){
         updateGitlabCommitStatus name: 'restore', state: 'failed', sha: commitId
         updateGitlabCommitStatus name: 'build', state: 'canceled', sha: commitId
-        updateGitlabCommitStatus name: 'publish', state: 'canceled', sha: commitId
         updateGitlabCommitStatus name: 'test', state: 'canceled', sha: commitId
         if(env.BRANCH_NAME == 'master'){
             updateGitlabCommitStatus name: 'pack', state: 'canceled', sha: commitId
@@ -48,26 +46,6 @@ node {
         }
     }catch(Exception ex){
         updateGitlabCommitStatus name: 'build', state: 'failed', sha: commitId
-        updateGitlabCommitStatus name: 'publish', state: 'canceled', sha: commitId
-        updateGitlabCommitStatus name: 'test', state: 'canceled', sha: commitId
-        if(env.BRANCH_NAME == 'master'){
-            updateGitlabCommitStatus name: 'pack', state: 'canceled', sha: commitId
-            updateGitlabCommitStatus name: 'deploy', state: 'canceled', sha: commitId
-        }
-        updateGitlabCommitStatus name: 'clean', state: 'canceled', sha: commitId
-        currentBuild.result = 'FAILURE'
-        echo "RESULT: ${currentBuild.result}"
-        return
-    }
-
-    try{
-        stage('Publish'){
-            updateGitlabCommitStatus name: 'publish', state: 'running', sha: commitId
-            //sh 'dotnet publish -c release'
-            updateGitlabCommitStatus name: 'publish', state: 'success', sha: commitId
-        }
-    }catch(Exception ex){
-        updateGitlabCommitStatus name: 'publish', state: 'failed', sha: commitId
         updateGitlabCommitStatus name: 'test', state: 'canceled', sha: commitId
         if(env.BRANCH_NAME == 'master'){
             updateGitlabCommitStatus name: 'pack', state: 'canceled', sha: commitId
@@ -138,9 +116,9 @@ node {
 
     try{
         stage('Clean Up'){
-        updateGitlabCommitStatus name: 'clean', state: 'running', sha: commitId
+            updateGitlabCommitStatus name: 'clean', state: 'running', sha: commitId
             cleanWs()
-        updateGitlabCommitStatus name: 'clean', state: 'success', sha: commitId
+            updateGitlabCommitStatus name: 'clean', state: 'success', sha: commitId
         }
     }catch(Exception ex){
         updateGitlabCommitStatus name: 'clean', state: 'failed', sha: commitId
