@@ -99,8 +99,9 @@ node {
             stage('NuGet'){
                 mvnHome = env.BUILD_NUMBER
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
-
-                sh "nuget pack ./App.IdentityProvider/App.IdentityProvider.csproj -Version 2.2.${mvnHome} -Build -Properties Configuration=Release"
+               dir('App.IdentityProvider/') {
+                sh "nuget pack App.IdentityProvider.csproj -Version 2.2.${mvnHome} -Build -Properties Configuration=Release"
+                }
 
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
             }   
@@ -118,7 +119,9 @@ node {
         if(env.BRANCH_NAME == 'master'){
             stage('Deploy'){
                 updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId 
+               dir('App.IdentityProvider/') {
                 sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU ./*.nupkg"
+               }
                 updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId
             }
         }
