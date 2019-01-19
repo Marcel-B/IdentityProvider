@@ -100,7 +100,7 @@ node {
                 mvnHome = env.BUILD_NUMBER
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
                dir('App.IdentityProvider/') {
-                sh "nuget pack App.IdentityProvider.csproj -Version 2.2.${mvnHome} -Build -Properties Configuration=Release"
+                sh "dotnet pack -p:PackageVersion=2.2.${mvnHome} -c Release"
                 }
 
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
