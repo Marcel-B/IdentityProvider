@@ -132,10 +132,10 @@ node {
             stage('Deploy'){
                 updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId 
                 dir('App.IdentityProvider/bin/Release/') {
+                    sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU ./*${packageN}.nupkg"
                     sh "ls"
                 }
-                sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU ./App.IdentityProvider/bin/Release/*${packageN}.nupkg"
-                updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId
+                updateGitlabCommitStatus name: 'deploy', state: 'success', sha: commitId
             }
         }
     }catch(Exception ex){
