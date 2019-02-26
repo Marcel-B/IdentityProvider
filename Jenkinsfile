@@ -22,7 +22,7 @@ node {
     try{
         stage('Restore') {
             updateGitlabCommitStatus name: 'restore', state: 'running', sha: commitId 
-            sh 'dotnet restore'
+            sh 'dotnet restore  --configfile NuGet.config'
             updateGitlabCommitStatus name: 'restore', state: 'success', sha: commitId 
         }
     }catch(Exception ex){
@@ -101,7 +101,7 @@ node {
             stage('Deploy'){
                 updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId 
                 dir('App.IdentityProvider/bin/Release/') {
-				sh "dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k 728ff2b3-dc2a-38cc-8fa9-a7afee07e7dc ./*${packageN}.nupkg"
+                sh "dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k 728ff2b3-dc2a-38cc-8fa9-a7afee07e7dc ./*${packageN}.nupkg"
                 }
                 updateGitlabCommitStatus name: 'deploy', state: 'success', sha: commitId
             }
