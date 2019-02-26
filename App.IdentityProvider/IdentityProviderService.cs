@@ -8,7 +8,7 @@ namespace com.b_velop.App.IdentityProvider
 {
     public class IdentityProviderService : IIdentityProviderService
     {
-        private HttpClient _client;
+        private readonly HttpClient _client;
         private readonly ILogger<IdentityProviderService> _logger;
         public string Adress { get; set; }
 
@@ -26,7 +26,7 @@ namespace com.b_velop.App.IdentityProvider
             var disco = await _client.GetDiscoveryDocumentAsync(infoItem.Url);
             if (disco.IsError)
             {
-                _logger.LogError($"Failed to connect to '{infoItem.Url}'. No DiscoveryDocument could be loaded");
+                _logger.LogError(7231, $"Failed to connect to '{infoItem.Url}'. No DiscoveryDocument could be loaded");
                 return null;
             }
 
@@ -41,11 +41,11 @@ namespace com.b_velop.App.IdentityProvider
             infoItem.Delete(); 
             if (tokenResponse.IsError)
             {
-                _logger.LogError($"Failed to download token from '{infoItem.Url}'. Error Description:'{tokenResponse.ErrorDescription}' Error Reason: '{tokenResponse.HttpErrorReason}' Http Status: '{tokenResponse.HttpStatusCode}'");
+                _logger.LogError(7231, $"Failed to download token from '{infoItem.Url}'. Error Description:'{tokenResponse.ErrorDescription}' Error Reason: '{tokenResponse.HttpErrorReason}' Http Status: '{tokenResponse.HttpStatusCode}'");
                 return null;
             }
 
-            Token token = Token.FromJson(tokenResponse.Raw);
+            var token = Token.FromJson(tokenResponse.Raw);
             return token ?? null;
         }
     }

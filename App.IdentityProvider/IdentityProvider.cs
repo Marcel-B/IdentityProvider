@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using com.b_velop.App.IdentityProvider.Model;
 using NLog;
-using System.IO;
 
 namespace com.b_velop.App.IdentityProvider
 {
