@@ -82,7 +82,7 @@ node {
                 packageN = "2.1.${mvnHome}"
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
                 dir('App.IdentityProvider/'){
-                    sh "dotnet pack -p:PackageVersion=${packageN} -c Release"
+                    sh "dotnet pack -p:PackageVersion=${packageN} -c Release -o ./"
                 }
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
             }   
@@ -101,7 +101,7 @@ node {
             stage('Deploy'){
                 updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId 
                 dir('App.IdentityProvider/bin/Release/') {
-                    sh "nuget push -src http://localhost:8083/ -ApiKey eCX22OBdshdncDSMF0DU ./*${packageN}.nupkg"
+				sh "dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k 728ff2b3-dc2a-38cc-8fa9-a7afee07e7dc ./*${packageN}.nupkg"
                 }
                 updateGitlabCommitStatus name: 'deploy', state: 'success', sha: commitId
             }
