@@ -14,7 +14,6 @@ node {
         updateGitlabCommitStatus name: 'test', state: 'pending', sha: commitId
         if(env.BRANCH_NAME == 'master'){
             updateGitlabCommitStatus name: 'pack', state: 'pending', sha: commitId
-            updateGitlabCommitStatus name: 'deploy', state: 'pending', sha: commitId
         }
         updateGitlabCommitStatus name: 'clean', state: 'pending', sha: commitId
     }
@@ -30,7 +29,6 @@ node {
         updateGitlabCommitStatus name: 'build', state: 'canceled', sha: commitId
         updateGitlabCommitStatus name: 'test', state: 'canceled', sha: commitId
         if(env.BRANCH_NAME == 'master'){
-            updateGitlabCommitStatus name: 'pack', state: 'canceled', sha: commitId
             updateGitlabCommitStatus name: 'deploy', state: 'canceled', sha: commitId
         }
         updateGitlabCommitStatus name: 'clean', state: 'canceled', sha: commitId
@@ -49,7 +47,6 @@ node {
         updateGitlabCommitStatus name: 'test', state: 'canceled', sha: commitId
         if(env.BRANCH_NAME == 'master'){
             updateGitlabCommitStatus name: 'pack', state: 'canceled', sha: commitId
-            updateGitlabCommitStatus name: 'deploy', state: 'canceled', sha: commitId
         }
         updateGitlabCommitStatus name: 'clean', state: 'canceled', sha: commitId
         currentBuild.result = 'FAILURE'
@@ -67,7 +64,6 @@ node {
         updateGitlabCommitStatus name: 'test', state: 'failed', sha: commitId
         if(env.BRANCH_NAME == 'master'){
             updateGitlabCommitStatus name: 'pack', state: 'canceled', sha: commitId
-            updateGitlabCommitStatus name: 'deploy', state: 'canceled', sha: commitId
         }
         updateGitlabCommitStatus name: 'clean', state: 'canceled', sha: commitId
         currentBuild.result = 'FAILURE'
@@ -83,36 +79,19 @@ node {
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
                 dir('App.IdentityProvider/'){
                     sh "dotnet pack -p:PackageVersion=${packageN} -c Release -o ./"
+					sh "dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k 728ff2b3-dc2a-38cc-8fa9-a7afee07e7dc ./*${packageN}.nupkg"
                 }
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
             }   
         }
     }catch(Exception ex){
         updateGitlabCommitStatus name: 'pack', state: 'failed', sha: commitId
-        updateGitlabCommitStatus name: 'deploy', state: 'canceled', sha: commitId
         updateGitlabCommitStatus name: 'clean', state: 'canceled', sha: commitId
         currentBuild.result = 'FAILURE'
         echo "RESULT: ${currentBuild.result}"
         return
     }
 
-    try{
-        if(env.BRANCH_NAME == 'master'){
-            stage('Deploy'){
-                updateGitlabCommitStatus name: 'deploy', state: 'running', sha: commitId 
-                dir('App.IdentityProvider/bin/Release/') {
-                sh "dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k 728ff2b3-dc2a-38cc-8fa9-a7afee07e7dc ./*${packageN}.nupkg"
-                }
-                updateGitlabCommitStatus name: 'deploy', state: 'success', sha: commitId
-            }
-        }
-    }catch(Exception ex){
-        updateGitlabCommitStatus name: 'deploy', state: 'failed', sha: commitId
-        updateGitlabCommitStatus name: 'clean', state: 'canceled', sha: commitId
-        currentBuild.result = 'FAILURE'
-        echo "RESULT: ${currentBuild.result}"
-        return
-    }
 
     try{
         stage('Clean Up'){
