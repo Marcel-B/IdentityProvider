@@ -10,9 +10,7 @@ namespace App.IdentityProvider.Tests
 {
     public class IdentityProviderServiceTests
     {
-        public IdentityProviderServiceTests()
-        {
-        }
+        public IdentityProviderServiceTests() { }
 
         public MyLoggerFactory GetLogger()
             => new MyLoggerFactory();
@@ -36,7 +34,6 @@ namespace App.IdentityProvider.Tests
                 new Logger<IdentityProviderService>(factory));
 
             // Act
-            var result = target.GetTokenAsync(GetInfoItem());
 
             // Assert
         }

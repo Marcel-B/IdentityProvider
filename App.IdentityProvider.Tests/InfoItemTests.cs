@@ -45,17 +45,20 @@ namespace App.IdentityProvider.Tests
         }
 
         [Fact, Category("IntegartionTest")]
-        public  void Integration()
+        public void Integration()
         {
             MyLoggerFactory factory = new MyLoggerFactory();
-            var ii = new InfoItem("jupiter.linux", "gpuEavEWvdfAr7a6FdK-YWpoGD9mbyetiYw!kaL9-r8RQtTYZW2J8kxj-XaGgnSmZSEae", "https://identity.phlex.de")
-            {
-                Scope = "com.bvelop.homeapi"
-            };
-            var id = new IdentityProviderService(
-                new System.Net.Http.HttpClient(), 
+            var ii = new InfoItem(
+                "jupiter.linux",
+                "gpuEavEWvdfAr7a6FdK-YWpoGD9mbyetiYw!kaL9-r8RQtTYZW2J8kxj-XaGgnSmZSEae",
+                "hub",
+                "https://identity.qaybe.de");
+
+            var target = new IdentityProviderService(
+                new System.Net.Http.HttpClient(),
                 new Logger<IdentityProviderService>(factory));
-            var token = id.GetTokenAsync(ii).GetAwaiter().GetResult();
+            var actual = target.GetTokenAsync(ii).GetAwaiter().GetResult();
+
         }
     }
 }
