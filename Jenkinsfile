@@ -92,7 +92,6 @@ node {
         return
     }
 
-
     try{
         stage('Clean Up'){
             updateGitlabCommitStatus name: 'clean', state: 'running', sha: commitId

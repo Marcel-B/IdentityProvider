@@ -8,6 +8,7 @@ namespace com.b_velop.App.IdentityProvider.Model
         public InfoItem(
             string clientId,
             string secret,
+            string scope,
             string url = null)
         {
             Credentials = Encoding.ASCII.GetBytes($"{clientId}:{secret}");

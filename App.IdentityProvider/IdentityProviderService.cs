@@ -20,7 +20,7 @@ namespace com.b_velop.App.IdentityProvider
             _logger = logger;
         }
 
-        public async Task<Token> GetToken(
+        public async Task<Token> GetTokenAsync(
             InfoItem infoItem)
         {
             var disco = await _client.GetDiscoveryDocumentAsync(infoItem.Url);

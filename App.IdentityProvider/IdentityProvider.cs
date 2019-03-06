@@ -11,13 +11,16 @@ namespace com.b_velop.App.IdentityProvider
 {
     public class IdentityProvider : IIdentityProvider
     {
+        private readonly ILogger _logger;
+
+        #region CTOR
         public IdentityProvider(
             ILogger logger = null)
         {
             _logger = logger;
         }
+        #endregion
 
-        private readonly ILogger _logger;
         public async Task<string> GetIdentityToken(
             string clientId,
             string secret,
@@ -29,6 +32,7 @@ namespace com.b_velop.App.IdentityProvider
                     new KeyValuePair<string, string> ("scope", scope),
                 };
             Token token = null;
+
             using (var content = new FormUrlEncodedContent(body))
             using (var client = new HttpClient())
             {
@@ -39,6 +43,7 @@ namespace com.b_velop.App.IdentityProvider
                 content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Basic", credentials);
+
                 var result = await client.PostAsync(authorityUrl, content);
                 if (result.IsSuccessStatusCode)
                 {

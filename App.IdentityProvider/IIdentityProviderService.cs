@@ -5,6 +5,6 @@ namespace com.b_velop.App.IdentityProvider
 {
     public interface IIdentityProviderService
     {
-        Task<Token> GetToken(InfoItem infoItem);
+        Task<Token> GetTokenAsync(InfoItem infoItem);
     }
 }
