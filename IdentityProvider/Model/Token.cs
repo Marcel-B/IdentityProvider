@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace com.b_velop.App.IdentityProvider.Model
+namespace com.b_velop.IdentityProvider.Model
 {
     public partial class Token
     {
@@ -14,6 +14,9 @@ namespace com.b_velop.App.IdentityProvider.Model
 
         [JsonProperty("token_type")]
         public string TokenType { get; set; }
+
+        [JsonProperty("scope")]
+        public string Scope { get; set; }
     }
 
     public partial class Token

@@ -1,11 +1,9 @@
-using com.b_velop.App.IdentityProvider.Model;
 using Xunit;
-using com.b_velop.App.IdentityProvider;
 using System.ComponentModel;
 using Xunit2.Should;
-using Microsoft.Extensions.DependencyInjection;
+using com.b_velop.IdentityProvider.Model;
+using com.b_velop.IdentityProvider;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace App.IdentityProvider.Tests
 {
@@ -49,10 +47,10 @@ namespace App.IdentityProvider.Tests
         {
             MyLoggerFactory factory = new MyLoggerFactory();
             var ii = new InfoItem(
-                "jupiter.linux",
-                "gpuEavEWvdfAr7a6FdK-YWpoGD9mbyetiYw!kaL9-r8RQtTYZW2J8kxj-XaGgnSmZSEae",
+                "test.test",
+                "asdf",
                 "hub",
-                "https://identity.qaybe.de");
+                "http://localhost:5050/");
 
             var target = new IdentityProviderService(
                 new System.Net.Http.HttpClient(),

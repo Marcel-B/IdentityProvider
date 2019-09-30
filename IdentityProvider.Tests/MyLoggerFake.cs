@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using com.b_velop.App.IdentityProvider;
+using com.b_velop.IdentityProvider;
 
 namespace App.IdentityProvider.Tests
 {
@@ -30,8 +30,6 @@ namespace App.IdentityProvider.Tests
 
     public class MyLoggerFactory : ILoggerFactory
     {
-  
-
         public ILogger CreateLogger(string categoryName)
         {
             return new MyLoggerFake<IIdentityProviderService>();

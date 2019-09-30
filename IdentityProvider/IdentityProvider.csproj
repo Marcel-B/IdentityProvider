@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>com.b_velop.App.IdentityProvider</RootNamespace>
+    <RootNamespace>com.b_velop.IdentityProvider</RootNamespace>
     <Title>App.IdentityProvider</Title>
     <RepositoryUrl></RepositoryUrl>
     <NeutralLanguage>de-DE</NeutralLanguage>

@@ -79,7 +79,7 @@ node {
                 updateGitlabCommitStatus name: 'pack', state: 'running', sha: commitId
                 dir('App.IdentityProvider/'){
                     sh "dotnet pack -p:PackageVersion=${packageN} -c Release -o ./"
-					sh "dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k f4aa7680-0f0a-3d31-90c4-97e840c221f5 ./*${packageN}.nupkg"
+					sh "dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ ./*${packageN}.nupkg"
                 }
                 updateGitlabCommitStatus name: 'pack', state: 'success', sha: commitId
             }   

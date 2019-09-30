@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace com.b_velop.App.IdentityProvider.Model
+namespace com.b_velop.IdentityProvider.Model
 {
     public class InfoItem
     {

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Net.Http;
-using com.b_velop.App.IdentityProvider;
+﻿using System.Net.Http;
 using Xunit;
-using Microsoft.Extensions.Logging;
-using com.b_velop.App.IdentityProvider.Model;
 using Moq;
+using com.b_velop.IdentityProvider;
+using com.b_velop.IdentityProvider.Model;
+using Microsoft.Extensions.Logging;
 
 namespace App.IdentityProvider.Tests
 {

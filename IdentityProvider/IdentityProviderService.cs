@@ -1,10 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using com.b_velop.App.IdentityProvider.Model;
 using Microsoft.Extensions.Logging;
 using IdentityModel.Client;
+using com.b_velop.IdentityProvider.Model;
 
-namespace com.b_velop.App.IdentityProvider
+namespace com.b_velop.IdentityProvider
 {
     public class IdentityProviderService : IIdentityProviderService
     {
