@@ -18,6 +18,6 @@ jobs:
     - name: Publish to Nexus
       env:
         super_secret: ${{ secrets.NEXUS }} 
-        version: $(VersionSuffix)
+        version: ${{ $(VersionSuffix) }}
       run: dotnet pack --version-suffix $version -c Release -o ./ && dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k $super_secret *.nupkg && rm *.nupkg
 
