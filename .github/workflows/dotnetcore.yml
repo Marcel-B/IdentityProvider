@@ -23,5 +23,5 @@ jobs:
     - name: Publish to Nexus
       env:
         super_secret: ${{ secrets.NEXUS }} 
-      run: dotnet pack -p:PackageVersion=2.1.$BUILD_NUMBER -c Release -o ./ && dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k $super_secret *.nupkg && rm *.nupkg
+      run: dotnet pack -p:PackageVersion=3.0.$BUILD_NUMBER -c Release -o ./ && dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k $super_secret *.nupkg && rm *.nupkg
 
