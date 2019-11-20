@@ -1,0 +1,29 @@
+name: .NET Core
+
+on:
+  push: 
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - master         # Push events on master branch
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v1 
+      with:
+        token: ${{secrets.github_token}} 
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: publish
+      env:
+        super_secret: ${{ secrets.NEXUS }} 
+      run: dotnet pack -p:PackageVersion=3.0.$BUILD_NUMBER -c Release -o ./ && dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k $super_secret *.nupkg && rm *.nupkg
