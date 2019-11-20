@@ -15,3 +15,6 @@ jobs:
         dotnet-version: 2.2.108
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - name: Publish to Nexus
+      run: dotnet pack -p:PackageVersion=3.0.1 -c Release -o ./ && dotnet nuget push -s https://nexus.qaybe.de/repository/nuget-hosted/ -k f4aa7680-0f0a-3d31-90c4-97e840c221f5 ./IdentityProvider.3.0.1.nupkg
+
